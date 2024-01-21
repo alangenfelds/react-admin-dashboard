@@ -8,7 +8,7 @@ import { fetchWrapper } from "./fetch-wrapper";
 
 export const API_BASE_URL = "https://api.crm.refine.dev";
 
-const API_URL = "https://api.crm.refine.dev/graphql";
+export const API_URL = "https://api.crm.refine.dev/graphql";
 const WS_URL = "wss://api.crm.refine.dev/graphql";
 
 const client = new GraphQLClient(API_URL, {
