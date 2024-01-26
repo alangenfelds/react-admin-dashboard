@@ -7,6 +7,7 @@ import { Text } from "../text";
 import UpcomingEventsSkeleton from "../skeleton/upcoming-events";
 import { getDate } from "@/utils/helpers";
 import { DASHBORAD_CALENDAR_UPCOMING_EVENTS_QUERY } from "@/graphql/queries";
+import dayjs from "dayjs";
 
 const UpcomingEvents = () => {
   // const [isLoading, setIsLoading] = useState(false);
@@ -16,29 +17,21 @@ const UpcomingEvents = () => {
     meta: {
       gqlQuery: DASHBORAD_CALENDAR_UPCOMING_EVENTS_QUERY,
     },
-    // queryOptions: {
-    //   enabled: !isLoading,
-    //   filters: [
-    //     {
-    //       field: "date",
-    //       operator: "gte",
-    //       value: getDate(new Date()),
-    //     },
-    //   ],
-    //   sort: [
-    //     {
-    //       field: "date",
-    //       order: "asc",
-    //     },
-    //   ],
-    // },
-    // pagination: { pageSize: 5 },
-    // onFinish: () => {
-    //   setIsLoading(false);
-    // },
+    pagination: { pageSize: 5 },
+    sorters: [
+      {
+        field: "startDate",
+        order: "asc",
+      },
+    ],
+    filters: [
+      {
+        field: "startDate",
+        operator: "gte",
+        value: dayjs().format("YYYY-MM-DD"),
+      },
+    ],
   });
-
-  console.log("data", data);
 
   return (
     <Card
@@ -88,7 +81,19 @@ const UpcomingEvents = () => {
               </List.Item>
             );
           }}
-        ></List>
+        />
+      )}
+      {!isLoading && data?.data?.length === 0 && (
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "220px",
+          }}
+        >
+          No upcoming events
+        </span>
       )}
     </Card>
   );
