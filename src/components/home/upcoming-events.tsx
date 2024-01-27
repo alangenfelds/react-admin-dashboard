@@ -10,8 +10,6 @@ import { DASHBORAD_CALENDAR_UPCOMING_EVENTS_QUERY } from "@/graphql/queries";
 import dayjs from "dayjs";
 
 const UpcomingEvents = () => {
-  // const [isLoading, setIsLoading] = useState(false);
-
   const { data, isLoading } = useList({
     resource: "events",
     meta: {
